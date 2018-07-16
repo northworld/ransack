@@ -57,6 +57,10 @@ class Person < ActiveRecord::Base
     of_age ? where("age >= ?", 18) : where("age < ?", 18)
   }
 
+  def self.over_age_as_class_method(y)
+    where(["age > ?", y])
+  end
+
   alias_attribute :full_name, :name
 
   ransack_alias :term, :name_or_email

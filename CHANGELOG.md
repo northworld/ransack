@@ -1,5 +1,8 @@
 # Change Log
 
+## Version
+* Pass arguments and don't sanatize if scopes have an arity > 0
+
 ## Version 1.8.8 - 2018-03-16
 * Fix multiple database support
   PR [#893](https://github.com/activerecord-hackery/ransack/pull/893)

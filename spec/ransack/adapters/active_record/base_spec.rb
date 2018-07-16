@@ -29,7 +29,7 @@ module Ransack
             before do
               allow(Person)
               .to receive(:ransackable_scopes)
-              .and_return([:active, :over_age, :of_age])
+              .and_return([:active, :over_age, :of_age, :over_age_as_class_method])
             end
 
             it 'applies true scopes' do
@@ -70,6 +70,16 @@ module Ransack
             it 'passes values to scopes' do
               s = Person.ransack('over_age' => 18)
               expect(s.result.to_sql).to (include 'age > 18')
+            end
+
+            it 'passes values to AR class methods' do
+              s = Person.ransack('over_age_as_class_method' => 18)
+              expect(s.result.to_sql).to (include 'age > 18')
+            end
+
+            it 'pass values to class methods with arity >= 1 even if params are boolean-like' do
+              s = Person.ransack('over_age_as_class_method' => 1)
+              expect(s.result.to_sql).to (include 'age > 1')
             end
 
             it 'chains scopes' do
